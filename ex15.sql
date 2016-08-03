@@ -1,16 +1,16 @@
 DROP TABLE IF EXISTS client;
 CREATE TABLE client (
-	id INTEGER PRIMARY KEY,
-	first_name TEXT,
-	last_name TEXT
+  id INTEGER PRIMARY KEY,
+  first_name TEXT,
+  last_name TEXT
 );
 
 DROP TABLE IF EXISTS pet;
 CREATE TABLE pet (
- id INTEGER PRIMARY KEY,
- name TEXT,
- category TEXT,
- card_id INTEGER
+  id INTEGER PRIMARY KEY,
+  name TEXT,
+  category TEXT,
+  card_id INTEGER
 );
 
 DROP TABLE IF EXISTS client_pet;
