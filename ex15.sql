@@ -86,8 +86,7 @@ INSERT INTO employee VALUES (3, "3rd class doctor");
 
 SELECT client.id, client.first_name, COUNT(client.id)
 	FROM client, pet, client_pet
-	WHERE client.id = client_pet.client_id AND 
-				pet.id = client_pet.pet_id
+	WHERE client.id = client_pet.client_id AND pet.id = client_pet.pet_id
 	GROUP BY client.id
 	HAVING COUNT(client.id) = 1;
 
@@ -99,13 +98,13 @@ SELECT client.id, client.first_name, COUNT(client.id)
 
 SELECT doctor.id, 
 	doctor.employee_id, 
-			doctor.first_name, 
-			employee.position
+	doctor.first_name, 
+	employee.position
 	FROM doctor
 	INNER JOIN employee ON doctor.employee_id = employee.id;
 
 	SELECT employee.position, 
-				COUNT(employee.position) AS "Count"
+		COUNT(employee.position) AS "Count"
 		FROM doctor
 		INNER JOIN employee ON doctor.employee_id = employee.id
 		GROUP BY employee.position;
@@ -113,33 +112,33 @@ SELECT doctor.id,
 	SELECT doctor.id, doctor.first_name
 		FROM doctor, employee
 		WHERE doctor.employee_id = employee.id AND
-					employee.position = "1st class doctor";
+		employee.position = "1st class doctor";
 		-- employee.id = 1;
 
 	SELECT client.first_name AS "Client name", 
-				pet.category AS "Animal",
-				pet.name AS "Pet name", 
-				card.id AS "Card code",
-				doctor.first_name AS "Doctor",
-				employee.position 
+		pet.category AS "Animal",
+		pet.name AS "Pet name", 
+		card.id AS "Card code",
+		doctor.first_name AS "Doctor",
+		employee.position 
 		FROM client, pet, client_pet, doctor, employee, card
 		WHERE client.id = client_pet.client_id AND
-					pet.id = client_pet.pet_id AND
-					pet.card_id = card.id AND
-					doctor.card_id = card.id AND
-					doctor.employee_id = employee.id;
+			pet.id = client_pet.pet_id AND
+			pet.card_id = card.id AND
+			doctor.card_id = card.id AND
+			doctor.employee_id = employee.id;
 
 	SELECT pet.id, 
-				pet.name AS "Pet name", 
-				COUNT(pet.id) AS "Have doctors"
+		pet.name AS "Pet name", 
+		COUNT(pet.id) AS "Have doctors"
 		FROM pet
 		INNER JOIN pet_doctor ON pet.id = pet_doctor.pet_id
 		GROUP BY pet.id
 		HAVING COUNT(pet.id) >= 1;
 
 	SELECT doctor.id, 
-				doctor.first_name AS "Doctor", 
-				COUNT(doctor.id) AS "Have pets"
+		doctor.first_name AS "Doctor", 
+		COUNT(doctor.id) AS "Have pets"
 		FROM doctor
 		INNER JOIN pet_doctor ON doctor.id = pet_doctor.doctor_id
 		GROUP BY doctor.id
