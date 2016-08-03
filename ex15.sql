@@ -15,36 +15,36 @@ CREATE TABLE pet (
 
 DROP TABLE IF EXISTS client_pet;
 CREATE TABLE client_pet (
-	client_id INTEGER,
-	pet_id INTEGER
+  client_id INTEGER,
+  pet_id INTEGER
 );
 
 DROP TABLE IF EXISTS card;
 CREATE TABLE card (
-	id INTEGER PRIMARY KEY,
-	disease TEXT,
-	treatment TEXT
+  id INTEGER PRIMARY KEY,
+  disease TEXT,
+  treatment TEXT
 );
 
 DROP TABLE IF EXISTS doctor;
 CREATE TABLE doctor (
-	id INTEGER PRIMARY KEY,
-	first_name TEXT,
-	last_name TEXT,
-	employee_id INTEGER,
-	card_id INTEGER
+  id INTEGER PRIMARY KEY,
+  first_name TEXT,
+  last_name TEXT,
+  employee_id INTEGER,
+  card_id INTEGER
 );
 
 DROP TABLE IF EXISTS pet_doctor;
 CREATE TABLE pet_doctor (
-	pet_id INTEGER,
-	doctor_id INTEGER
+  pet_id INTEGER,
+  doctor_id INTEGER
 );
 
 DROP TABLE IF EXISTS employee;
 CREATE TABLE employee (
-	id INTEGER PRIMARY KEY,
-	position TEXT
+  id INTEGER PRIMARY KEY,
+  position TEXT
 );
 
 INSERT INTO client VALUES (1, "Andrew", "Joy");
@@ -98,14 +98,14 @@ SELECT client.id, client.first_name, COUNT(client.id)
 	HAVING COUNT(client.id) > 1;
 
 SELECT doctor.id, 
-			 doctor.employee_id, 
-			 doctor.first_name, 
-			 employee.position
+	doctor.employee_id, 
+			doctor.first_name, 
+			employee.position
 	FROM doctor
 	INNER JOIN employee ON doctor.employee_id = employee.id;
 
 	SELECT employee.position, 
-				 COUNT(employee.position) AS "Count"
+				COUNT(employee.position) AS "Count"
 		FROM doctor
 		INNER JOIN employee ON doctor.employee_id = employee.id
 		GROUP BY employee.position;
@@ -117,11 +117,11 @@ SELECT doctor.id,
 		-- employee.id = 1;
 
 	SELECT client.first_name AS "Client name", 
-				 pet.category AS "Animal",
-				 pet.name AS "Pet name", 
-				 card.id AS "Card code",
-				 doctor.first_name AS "Doctor",
-				 employee.position 
+				pet.category AS "Animal",
+				pet.name AS "Pet name", 
+				card.id AS "Card code",
+				doctor.first_name AS "Doctor",
+				employee.position 
 		FROM client, pet, client_pet, doctor, employee, card
 		WHERE client.id = client_pet.client_id AND
 					pet.id = client_pet.pet_id AND
@@ -130,31 +130,20 @@ SELECT doctor.id,
 					doctor.employee_id = employee.id;
 
 	SELECT pet.id, 
-				 pet.name AS "Pet name", 
-				 COUNT(pet.id) AS "Have doctors"
+				pet.name AS "Pet name", 
+				COUNT(pet.id) AS "Have doctors"
 		FROM pet
 		INNER JOIN pet_doctor ON pet.id = pet_doctor.pet_id
 		GROUP BY pet.id
 		HAVING COUNT(pet.id) >= 1;
 
 	SELECT doctor.id, 
-				 doctor.first_name AS "Doctor", 
-				 COUNT(doctor.id) AS "Have pets"
+				doctor.first_name AS "Doctor", 
+				COUNT(doctor.id) AS "Have pets"
 		FROM doctor
 		INNER JOIN pet_doctor ON doctor.id = pet_doctor.doctor_id
 		GROUP BY doctor.id
 		HAVING COUNT(doctor.id) >= 1;
-
-
-
-
-
-
-
-
-
-
-
 
 
 
